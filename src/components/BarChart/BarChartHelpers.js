@@ -8,7 +8,7 @@ export const AxisBottom = ({ innerHeight, tickFormat, xScale }) => xScale.ticks(
 )
 
 export const AxisLeft = ({ yScale }) => yScale.domain().map(tickValue =>
-    <g className="tick">
+    <g className="tick" key={tickValue}>
         <text
             key={tickValue}
             dy=".32em"

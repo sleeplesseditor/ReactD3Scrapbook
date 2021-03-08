@@ -1,12 +1,20 @@
-import './App.css';
+import * as React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './App.scss';
 
-import BarChart from './components/BarChart';
+import Header from './components/Header/Header';
+import LazyLoader from './components/LazyLoader/LazyLoader';
+
+const BarChartPage = React.lazy(() => import('./components/BarChart/BarChart'));
 
 function App() {
   return (
-    <div className="App">
-      <BarChart />
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={LazyLoader(BarChartPage)} />
+      </Switch>
+    </Router>
   );
 }
 

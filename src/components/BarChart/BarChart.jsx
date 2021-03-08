@@ -39,31 +39,33 @@ const BarChart = () => {
         .range([0, innerWidth]);
 
     return (
-        <svg width={width} height={height}>
-            <g transform={`translate(${margin.left}, ${margin.top})`}>
-                <AxisBottom
-                    innerHeight={innerHeight}
-                    tickFormat={xAxisTickFormat}
-                    xScale={xScale}
-                />
-                <AxisLeft yScale={yScale} />
-                <text
-                    className="axis-label"
-                    x={innerWidth / 2} y={innerHeight + xAxisLabelOffset}
-                    textAnchor="middle"
-                >
-                    Population
-                </text>
-                <Marks
-                    data={data}
-                    tooltipFormat={xAxisTickFormat}
-                    xScale={xScale}
-                    yScale={yScale}
-                    xValue={xValue}
-                    yValue={yValue} 
-                />
-            </g>
-        </svg>
+        <div className="main-container">
+            <svg width={width} height={height}>
+                <g transform={`translate(${margin.left}, ${margin.top})`}>
+                    <AxisBottom
+                        innerHeight={innerHeight}
+                        tickFormat={xAxisTickFormat}
+                        xScale={xScale}
+                    />
+                    <AxisLeft yScale={yScale} />
+                    <text
+                        className="axis-label"
+                        x={innerWidth / 2} y={innerHeight + xAxisLabelOffset}
+                        textAnchor="middle"
+                    >
+                        Population
+                    </text>
+                    <Marks
+                        data={data}
+                        tooltipFormat={xAxisTickFormat}
+                        xScale={xScale}
+                        yScale={yScale}
+                        xValue={xValue}
+                        yValue={yValue} 
+                    />
+                </g>
+            </svg>
+        </div>
     )
 };
 
