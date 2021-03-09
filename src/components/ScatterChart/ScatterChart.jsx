@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { format, scaleBand, scaleLinear, max } from 'd3';
-import { AxisLeft, AxisBottom, Marks } from './BarChartHelpers';
+import { extent, format, scaleLinear } from 'd3';
 import { useData } from './useData';
-import './BarChart.css';
+import { AxisBottom, AxisLeft, Marks } from './ScatterChartHelpers';
+import './ScatterChart.css';
 
 const width = 960;
 const height = 500;
@@ -10,13 +10,14 @@ const margin = {
     top: 20,
     right: 30,
     bottom: 65,
-    left: 220
+    left: 90
 }
 const xAxisLabelOffset = 50;
+const yAxisLabelOffset = 40;
 const siFormat = format('.2s');
 const xAxisTickFormat = tickValue => siFormat(tickValue).replace('G', 'B');
 
-const BarChart = () => {
+const ScatterChart = () => {
     const data = useData();
 
     if(!data) {
@@ -26,16 +27,18 @@ const BarChart = () => {
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
 
-    const xValue = d => d.Population;
-    const yValue = d => d.Country;
+    const xValue = d => d.sepal_length;
+    const yValue = d => d.sepal_width;
+    const xAxisLabel = 'Sepal Length';
+    const yAxisLabel = 'Sepal Width';
 
     const xScale = scaleLinear()
-    .domain([0, max(data, xValue)])
-    .range([0, innerWidth]);
+        .domain(extent(data, xValue))
+        .range([0, innerWidth])
+        .nice();
 
-    const yScale = scaleBand()
-        .domain(data.map(yValue))
-        .padding(0.1)
+    const yScale = scaleLinear()
+        .domain(extent(data, yValue))
         .range([0, innerHeight]);
 
     return (
@@ -45,17 +48,31 @@ const BarChart = () => {
                     <AxisBottom
                         innerHeight={innerHeight}
                         tickFormat={xAxisTickFormat}
+                        tickOffset={10}
                         xScale={xScale}
                     />
-                    <AxisLeft yScale={yScale} />
                     <text
                         className="axis-label"
-                        x={innerWidth / 2} y={innerHeight + xAxisLabelOffset}
+                        textAnchor="middle"
+                        transform={`translate(${-yAxisLabelOffset}, ${innerHeight / 2}), rotate(-90) `}
+                    >
+                        {yAxisLabel}
+                    </text>
+                    <AxisLeft
+                        innerWidth={innerWidth}
+                        tickOffset={10}
+                        yScale={yScale}
+                    />
+                    <text
+                        className="axis-label"
+                        x={innerWidth / 2}
+                        y={innerHeight + xAxisLabelOffset}
                         textAnchor="middle"
                     >
-                        Population
+                        {xAxisLabel}
                     </text>
                     <Marks
+                        circleRadius={7}
                         data={data}
                         tooltipFormat={xAxisTickFormat}
                         xScale={xScale}
@@ -69,4 +86,4 @@ const BarChart = () => {
     )
 };
 
-export default BarChart;
+export default ScatterChart;

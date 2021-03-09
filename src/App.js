@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import LazyLoader from './components/LazyLoader/LazyLoader';
 
 const BarChartPage = React.lazy(() => import('./components/BarChart/BarChart'));
+const ScatterChartPage = React.lazy(() => import('./components/ScatterChart/ScatterChart'));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={LazyLoader(BarChartPage)} />
+        <Route exact path="/scatter" component={LazyLoader(ScatterChartPage)} />
       </Switch>
     </Router>
   );
