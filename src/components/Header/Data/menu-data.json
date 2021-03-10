@@ -1,0 +1,28 @@
+{
+	"menuTitles": [
+        {
+			"title": "Charts",
+			"icon": "chartsIcon",
+			"link": "charts"
+        }
+    ],
+    "subMenus": [
+        {
+            "activeMenu": "charts",
+            "backIcon": "arrowIcon",
+            "menuTitle": "Charts",
+            "menuLinks": [
+                {
+                    "title": "Bar",
+                    "icon": "barIcon",
+                    "link": "/"
+                },
+                {
+                    "title": "Scatter",
+                    "icon": "scatterIcon",
+                    "link": "/scatter"
+                }
+            ]
+        }
+    ]
+}
