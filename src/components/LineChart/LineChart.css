@@ -1,0 +1,25 @@
+.tick line {
+    stroke: #C0C0BB;
+}
+
+.tick text {
+    color: #635F5D;
+    font-family: 'Poppins', sans-serif;
+}
+
+.marks circle {
+    fill: #d12323;
+}
+
+.marks path {
+    fill: none;
+    stroke: #d12323;
+    stroke-width: 5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.axis-label {
+    font-size: 1.25em;
+    color: #635F5D;
+}

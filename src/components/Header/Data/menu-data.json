@@ -21,6 +21,11 @@
                     "title": "Scatter",
                     "icon": "scatterIcon",
                     "link": "/scatter"
+                },
+                {
+                    "title": "Line",
+                    "icon": "lineIcon",
+                    "link": "/line"
                 }
             ]
         }
