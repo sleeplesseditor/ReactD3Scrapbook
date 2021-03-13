@@ -1,14 +1,19 @@
 .marks {
-    &.country {
-        fill: #137B80;
-        stroke: #C0C0BB;
-    }
-
-    &.interior {
+    .graticules {
         fill: none;
+        stroke: #DADADA;
     }
 
-    &.sphere {
+    .land {
+        fill: #137B80;
+    }
+
+    .interiors {
+        fill: none;
+        stroke: #339498;
+    }
+
+    .sphere {
         fill: #ECECEC;
     }
 }

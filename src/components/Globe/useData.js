@@ -9,9 +9,9 @@ export const useData = () => {
 
     React.useEffect(() => {
         json(jsonUrl).then(topology => {
-            const { countries } = topology.objects;
+            const { countries, land } = topology.objects;
             setData({
-                countries: feature(topology, countries),
+                land: feature(topology, land),
                 interiors: mesh(topology, countries, (a, b) => a !== b)
             });
         });
