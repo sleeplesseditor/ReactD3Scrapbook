@@ -4,6 +4,11 @@
 			"title": "Charts",
 			"icon": "chartsIcon",
 			"link": "charts"
+        },
+        {
+			"title": "Maps",
+			"icon": "MapIcons",
+			"link": "maps"
         }
     ],
     "subMenus": [
@@ -26,6 +31,18 @@
                     "title": "Line",
                     "icon": "lineIcon",
                     "link": "/line"
+                }
+            ]
+        },
+        {
+            "activeMenu": "maps",
+            "backIcon": "arrowIcon",
+            "menuTitle": "Maps",
+            "menuLinks": [
+                {
+                    "title": "Globe",
+                    "icon": "globeIcon",
+                    "link": "/globe"
                 }
             ]
         }
