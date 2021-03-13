@@ -7,7 +7,7 @@
         },
         {
 			"title": "Maps",
-			"icon": "MapIcons",
+			"icon": "mapIcon",
 			"link": "maps"
         }
     ],

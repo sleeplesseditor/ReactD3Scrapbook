@@ -1,0 +1,14 @@
+.marks {
+    &.country {
+        fill: #137B80;
+        stroke: #C0C0BB;
+    }
+
+    &.interior {
+        fill: none;
+    }
+
+    &.sphere {
+        fill: #ECECEC;
+    }
+}
