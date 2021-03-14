@@ -48,6 +48,11 @@
                     "title": "Globe",
                     "icon": "globeIcon",
                     "link": "/globe"
+                },
+                {
+                    "title": "Cities",
+                    "icon": "globeIcon",
+                    "link": "/cities"
                 }
             ]
         },
