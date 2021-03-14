@@ -3,7 +3,7 @@ import { extent, format, scaleLinear } from 'd3';
 import { useData } from './useData';
 import { AxisBottom, AxisLeft, Marks } from './ScatterMenuHelpers';
 import { Dropdown } from '../Dropdown/Dropdown';
-import './ScatterMenu.css';
+import './ScatterMenu.scss';
 
 const width = 960;
 const menuHeight = 75;
@@ -66,10 +66,12 @@ const ScatterMenu = () => {
 
     return (
         <div className="main-container">
-            <label for="x-select">X:</label>
-            <Dropdown id="x-select" options={attributes} selectedValue={xAttribute} onSelectedValueChange={setXAttribute} />
-            <label for="y-select">Y:</label>
-            <Dropdown id="y-select" options={attributes} selectedValue={yAttribute} onSelectedValueChange={setYAttribute} />
+            <div className="menu-container">
+                <label for="x-select">X:</label>
+                <Dropdown id="x-select" options={attributes} selectedValue={xAttribute} onSelectedValueChange={setXAttribute} />
+                <label for="y-select">Y:</label>
+                <Dropdown id="y-select" options={attributes} selectedValue={yAttribute} onSelectedValueChange={setYAttribute} />
+            </div>
             <svg width={width} height={height}>
                 <g transform={`translate(${margin.left}, ${margin.top})`}>
                     <AxisBottom

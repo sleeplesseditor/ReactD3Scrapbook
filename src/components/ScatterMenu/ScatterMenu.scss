@@ -1,0 +1,32 @@
+.tick {
+    line {
+        stroke: #C0C0BB;
+
+    }
+
+    text {
+        color: #635F5D;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+.mark {
+    fill: #d12323;
+}
+
+.axis-label {
+    font-size: 1.25em;
+    color: #635F5D;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+
+    label {
+        margin: 0rem 0.25rem 0 1rem;
+    }
+}
