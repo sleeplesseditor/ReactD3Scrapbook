@@ -23,7 +23,6 @@ export const AxisLeft = ({ innerWidth, tickOffset, yScale }) => yScale.ticks().m
 
 export const Marks = ({ circleRadius, colourScale, colourValue, data, tooltipFormat, xScale, xValue, yScale, yValue }) =>  data.map(d => (
     <circle
-        key={d.sepal_width}
         className="mark"
         cx={xScale(xValue(d))}
         cy={yScale(yValue(d))}
@@ -34,9 +33,23 @@ export const Marks = ({ circleRadius, colourScale, colourValue, data, tooltipFor
     </circle>
 ))
 
-export const ColourLegend = ({ colourScale, tickSpacing, tickSize, tickTextOffset }) => {
+export const ColourLegend = ({
+    colourScale,
+    fadeOpacity,
+    hoveredValue,
+    onHover,
+    tickSpacing,
+    tickSize,
+    tickTextOffset
+}) => {
     return colourScale.domain().map((domainValue, index) => (
-        <g className="tick" transform={`translate(0, ${index * tickSpacing})`}>
+        <g
+            className="tick"
+            transform={`translate(0, ${index * tickSpacing})`}
+            onMouseEnter={() => {onHover(domainValue)}}
+            onMouseOut={() => {onHover(null)}}
+            opacity={hoveredValue && domainValue !== hoveredValue ? fadeOpacity : 1}
+        >
             <circle fill={colourScale(domainValue)} r={tickSize} />
             <text x={tickTextOffset} dy=".32em">{domainValue}</text>
         </g>

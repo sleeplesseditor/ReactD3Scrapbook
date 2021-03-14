@@ -14,6 +14,7 @@ const margin = {
     bottom: 65,
     left: 90
 }
+const fadeOpacity = 0.2;
 const xAxisLabelOffset = 50;
 const yAxisLabelOffset = 40;
 const siFormat = format('.2s');
@@ -36,6 +37,9 @@ const getLabel = (value) => {
 }
 
 const ScatterMenu = () => {
+    const data = useData();
+    const [hoveredValue, setHoveredValue] = React.useState(null);
+
     const initialXAttribute = 'sepal_length';
     const xValue = d => d[xAttribute];
     const [xAttribute, setXAttribute] = React.useState(initialXAttribute);
@@ -50,11 +54,11 @@ const ScatterMenu = () => {
     const circleRadius = 7;
     const colourLegendLabel = 'Species';
 
-    const data = useData();
-
     if(!data) {
         return <pre>Loading...</pre>
     }
+
+    const filteredData = data.filter(d => hoveredValue === colourValue(d));
 
     const innerHeight = height - margin.top - margin.bottom;
     const innerWidth = width - margin.left - margin.right;
@@ -108,7 +112,7 @@ const ScatterMenu = () => {
                     >
                         {xAxisLabel}
                     </text>
-                    <g transform={`translate(${innerWidth + 50}, 60)`}>
+                    <g className="legend" transform={`translate(${innerWidth + 50}, 60)`}>
                         <text
                             className="axis-label"
                             textAnchor="middle"
@@ -119,16 +123,32 @@ const ScatterMenu = () => {
                         </text>
                         <ColourLegend
                             colourScale={colourScale}
+                            fadeOpacity={fadeOpacity}
+                            hoveredValue={hoveredValue}
+                            onHover={setHoveredValue}
                             tickSpacing={22}
                             tickSize={circleRadius}
                             tickTextOffset={12}
                         />
                     </g>
+                    <g opacity={hoveredValue ? fadeOpacity : 1}>
+                        <Marks
+                            circleRadius={circleRadius}
+                            colourScale={colourScale}
+                            colourValue={colourValue}
+                            data={data}
+                            tooltipFormat={xAxisTickFormat}
+                            xScale={xScale}
+                            yScale={yScale}
+                            xValue={xValue}
+                            yValue={yValue} 
+                        />
+                    </g>  
                     <Marks
                         circleRadius={circleRadius}
                         colourScale={colourScale}
                         colourValue={colourValue}
-                        data={data}
+                        data={filteredData}
                         tooltipFormat={xAxisTickFormat}
                         xScale={xScale}
                         yScale={yScale}
