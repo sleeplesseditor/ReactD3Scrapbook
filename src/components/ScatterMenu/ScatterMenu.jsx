@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { extent, format, scaleLinear } from 'd3';
+import { extent, format, scaleLinear, scaleOrdinal } from 'd3';
 import { useData } from './useData';
-import { AxisBottom, AxisLeft, Marks } from './ScatterMenuHelpers';
+import { AxisBottom, AxisLeft, ColourLegend, Marks } from './ScatterMenuHelpers';
 import { Dropdown } from '../Dropdown/Dropdown';
 import './ScatterMenu.scss';
 
@@ -10,7 +10,7 @@ const menuHeight = 75;
 const height = 500 - menuHeight;
 const margin = {
     top: 20,
-    right: 30,
+    right: 200,
     bottom: 65,
     left: 90
 }
@@ -46,6 +46,10 @@ const ScatterMenu = () => {
     const [yAttribute, setYAttribute] = React.useState(initialYAttribute);
     const yAxisLabel = getLabel(yAttribute);
 
+    const colourValue = d => d.species;
+    const circleRadius = 7;
+    const colourLegendLabel = 'Species';
+
     const data = useData();
 
     if(!data) {
@@ -63,6 +67,10 @@ const ScatterMenu = () => {
     const yScale = scaleLinear()
         .domain(extent(data, yValue))
         .range([0, innerHeight]);
+
+    const colourScale = scaleOrdinal()
+        .domain(data.map(colourValue))
+        .range(['#E6842A', '#137B80', '#8E6C8A']);
 
     return (
         <div className="main-container">
@@ -100,8 +108,26 @@ const ScatterMenu = () => {
                     >
                         {xAxisLabel}
                     </text>
+                    <g transform={`translate(${innerWidth + 50}, 60)`}>
+                        <text
+                            className="axis-label"
+                            textAnchor="middle"
+                            x={35}
+                            y={-25}
+                        >
+                            {colourLegendLabel}
+                        </text>
+                        <ColourLegend
+                            colourScale={colourScale}
+                            tickSpacing={22}
+                            tickSize={circleRadius}
+                            tickTextOffset={12}
+                        />
+                    </g>
                     <Marks
-                        circleRadius={7}
+                        circleRadius={circleRadius}
+                        colourScale={colourScale}
+                        colourValue={colourValue}
                         data={data}
                         tooltipFormat={xAxisTickFormat}
                         xScale={xScale}

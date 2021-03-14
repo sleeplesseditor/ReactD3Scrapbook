@@ -21,14 +21,24 @@ export const AxisLeft = ({ innerWidth, tickOffset, yScale }) => yScale.ticks().m
     </g>
 )
 
-export const Marks = ({ circleRadius, data, tooltipFormat, xScale, xValue, yScale, yValue }) =>  data.map(d => (
+export const Marks = ({ circleRadius, colourScale, colourValue, data, tooltipFormat, xScale, xValue, yScale, yValue }) =>  data.map(d => (
     <circle
         key={d.sepal_width}
         className="mark"
         cx={xScale(xValue(d))}
         cy={yScale(yValue(d))}
+        fill={colourScale(colourValue(d))}
         r={circleRadius}
     >
         <title>{tooltipFormat(xValue(d))}</title>
     </circle>
 ))
+
+export const ColourLegend = ({ colourScale, tickSpacing, tickSize, tickTextOffset }) => {
+    return colourScale.domain().map((domainValue, index) => (
+        <g className="tick" transform={`translate(0, ${index * tickSpacing})`}>
+            <circle fill={colourScale(domainValue)} r={tickSize} />
+            <text x={tickTextOffset} dy=".32em">{domainValue}</text>
+        </g>
+    ))
+};
