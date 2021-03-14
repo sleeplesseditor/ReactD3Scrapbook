@@ -6,6 +6,7 @@ import { ReactComponent as ChartsIcon } from './charts.svg';
 import { ReactComponent as GlobeIcon } from './globe.svg';
 import { ReactComponent as LineIcon } from './line.svg';
 import { ReactComponent as MapIcon } from './maps.svg';
+import { ReactComponent as MenuIcon } from './menu.svg';
 import { ReactComponent as ScatterIcon } from './scatter.svg';
 
 const getIcon = (icon) => {
@@ -16,6 +17,7 @@ const getIcon = (icon) => {
       globeIcon: () => <GlobeIcon />,
       lineIcon: () => <LineIcon/>,
       mapIcon: () => <MapIcon />,
+      menuIcon: () => <MenuIcon />,
       scatterIcon: () => <ScatterIcon/>,
       default: () => null
   }

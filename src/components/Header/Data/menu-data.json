@@ -9,6 +9,11 @@
 			"title": "Maps",
 			"icon": "mapIcon",
 			"link": "maps"
+        },
+        {
+			"title": "Menus",
+			"icon": "menuIcon",
+			"link": "menu"
         }
     ],
     "subMenus": [
@@ -43,6 +48,18 @@
                     "title": "Globe",
                     "icon": "globeIcon",
                     "link": "/globe"
+                }
+            ]
+        },
+        {
+            "activeMenu": "menu",
+            "backIcon": "arrowIcon",
+            "menuTitle": "Menus",
+            "menuLinks": [
+                {
+                    "title": "Scatter Menu",
+                    "icon": "scatterIcon",
+                    "link": "/scatter-menu"
                 }
             ]
         }
