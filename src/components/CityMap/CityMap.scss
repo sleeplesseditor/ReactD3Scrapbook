@@ -17,8 +17,25 @@
         fill: #FBFBFB;
     }
 
-    circle {
+    .city-marker {
         fill: #137B80;
         opacity: 0.3;
+    }
+
+    .marker {
+        position: fixed;
+        opacity: 0.75;
+        background-color: blue;
+        font-family: sans-serif;
+        font-weight: bold;
+        color: white;
+        padding: 5px;
+        height: 50px;
+        width: 100px;
+        z-index: 100;
+
+        &-text {
+            color: white;
+        }
     }
 }

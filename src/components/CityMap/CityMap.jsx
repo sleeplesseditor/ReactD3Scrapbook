@@ -8,6 +8,7 @@ const width = 960;
 const height = 500;
 
 const CityMap = () => {
+    const [tooltipState, setTooltipState] = React.useState(null);
     const worldAtlas = useWorldAtlas();
     const cities = useCities();
 
@@ -18,7 +19,7 @@ const CityMap = () => {
     return (
         <div className="main-container">
             <svg width={width} height={height}>
-                <Marks cities={cities} worldAtlas={worldAtlas} />
+                <Marks cities={cities} worldAtlas={worldAtlas} setTooltipState={setTooltipState} tooltipState={tooltipState} />
             </svg>
         </div>
     )
