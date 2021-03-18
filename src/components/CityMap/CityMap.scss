@@ -39,3 +39,13 @@
         }
     }
 }
+
+.tooltip {
+    opacity: 0.75;
+    background-color: blue;
+
+    text {
+        fill: #000;
+        font-size: 12px;
+    }
+}
