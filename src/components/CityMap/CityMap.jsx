@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { max, scaleSqrt } from 'd3';
 import { useWorldAtlas } from './useWorldAtlas';
 import { useCities } from './useCities';
 import { Marks } from './CityMapHelpers';
@@ -16,10 +17,24 @@ const CityMap = () => {
         return <pre>Loading...</pre>
     }
 
+    const sizeValue = d => d.population;
+    const maxRadius = 15; 
+
+    const sizeScale = scaleSqrt()
+        .domain([0, max(cities, sizeValue)])
+        .range([0, maxRadius])
+
     return (
         <div className="main-container">
             <svg width={width} height={height}>
-                <Marks cities={cities} worldAtlas={worldAtlas} setTooltipState={setTooltipState} tooltipState={tooltipState} />
+                <Marks  
+                    cities={cities}
+                    setTooltipState={setTooltipState}
+                    sizeScale={sizeScale}
+                    sizeValue={sizeValue}
+                    tooltipState={tooltipState}
+                    worldAtlas={worldAtlas}
+                />
             </svg>
         </div>
     )

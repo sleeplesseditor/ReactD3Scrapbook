@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { geoGraticule, geoNaturalEarth1, geoPath, select } from 'd3';
+import { geoGraticule, geoNaturalEarth1, geoPath } from 'd3';
 
 const projection = geoNaturalEarth1();
 const path = geoPath(projection);
@@ -8,6 +8,8 @@ const graticule = geoGraticule();
 export const Marks = ({
     cities,
     setTooltipState,
+    sizeScale,
+    sizeValue,
     tooltipState,
     worldAtlas: { land, interiors }
 }) => {
@@ -33,7 +35,7 @@ export const Marks = ({
             <path className="interiors" d={path(interiors)} />
             {cities.map(d => {
                 const [x, y] = projection([d.lng, d.lat]);
-                return <circle className="city-marker" cx={x} cy={y} r={1.5} onMouseOver={() => setTooltipState(d)} onMouseOut={() => setTooltipState(null)} />
+                return <circle className="city-marker" cx={x} cy={y} r={sizeScale(sizeValue(d))} onMouseOver={() => setTooltipState(d)} onMouseOut={() => setTooltipState(null)} />
             })}
             {tooltipState ? tooltipComponent() : null}
         </g>
