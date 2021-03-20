@@ -1,4 +1,9 @@
 import * as React from 'react';
+import { geoGraticule, geoNaturalEarth1, geoPath } from 'd3';
+
+const projection = geoNaturalEarth1();
+const path = geoPath(projection);
+const graticule = geoGraticule();
 
 export const AxisBottom = ({ innerHeight, tickFormat, tickOffset, xScale }) => xScale.ticks().map(tickValue =>
     <g className="tick" key={tickValue} transform={`translate(${xScale(tickValue)}, 0)`}>
@@ -32,3 +37,23 @@ export const Marks = ({ data, innerHeight, tooltipFormat, xScale, yScale }) =>  
         <title>{tooltipFormat(d.y)}</title>
     </rect>
 ))
+
+export const Globe = ({
+        worldAtlas: { land, interiors },
+        data,
+        sizeScale,
+        sizeValue
+    }) => (
+        <g className="marks">
+            <path className="sphere" id="sphere" d={path({ type: 'Sphere' })} />
+            <path className="graticules" d={path(graticule())} />
+            {land.features.map(feature => (
+                <path key={feature.properties.name} className="land" d={path(feature)} />
+            ))};
+            <path className="interiors" d={path(interiors)} />
+            {data.map(d => {
+                const [x, y] = projection(d.coords);
+                return <circle className="city-marker" cx={x} cy={y} r={sizeScale(sizeValue(d))} />
+            })}
+        </g>
+);

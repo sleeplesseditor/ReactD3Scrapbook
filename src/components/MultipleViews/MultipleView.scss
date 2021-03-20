@@ -2,12 +2,16 @@ pre {
     font-size: 7em;
 }
 
-.tick line {
-    stroke: #C0C0BB;
-}
-
-.tick text {
-    fill: #635F5D;
+.tick {
+    line {
+        fill: none;
+        stroke: #ececec;
+    }
+    
+    text {
+        fill: #635F5D;
+        font-size: 0.5em;
+    }
 }
 
 .mark {
@@ -15,6 +19,31 @@ pre {
 }
 
 .axis-label {
-    font-size: 1.2em;
+    font-size: 0.5em;
     fill: #635F5D;
+}
+
+.marks {
+    .graticules {
+        fill: none;
+        stroke: #ececec;
+    }
+
+    .interiors {
+        fill: none;
+        stroke: #d9dfe0;
+    }
+
+    .land {
+        fill: #ececec;
+    }
+
+    .sphere {
+        fill: #fbfbfb;
+    }
+}
+
+circle {
+    fill: #137B80;
+    opacity: 0.3;
 }
