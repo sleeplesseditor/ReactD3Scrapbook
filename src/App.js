@@ -12,6 +12,7 @@ const LineChartPage = React.lazy(() => import('./components/LineChart/LineChart'
 const GlobePage = React.lazy(() => import('./components/Globe/Globe'));
 const CityMapPage = React.lazy(() => import('./components/CityMap/CityMap'));
 const ScatterMenuPage = React.lazy(() => import('./components/ScatterMenu/ScatterMenu'));
+const MultipleViewsPage = React.lazy(() => import('./components/MultipleViews/MultipleViews'));
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/globe" component={LazyLoader(GlobePage)} />
         <Route exact path="/cities" component={LazyLoader(CityMapPage)} />
         <Route exact path="/scatter-menu" component={LazyLoader(ScatterMenuPage)} />
+        <Route exact path="/missing-migrants" component={LazyLoader(MultipleViewsPage)} />
       </Switch>
     </Router>
   );

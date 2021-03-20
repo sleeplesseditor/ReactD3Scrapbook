@@ -14,6 +14,11 @@
 			"title": "Menus",
 			"icon": "menuIcon",
 			"link": "menu"
+        },
+        {
+			"title": "Multiple Views",
+			"icon": "menuIcon",
+			"link": "multiple-views"
         }
     ],
     "subMenus": [
@@ -65,6 +70,18 @@
                     "title": "Scatter Menu",
                     "icon": "scatterIcon",
                     "link": "/scatter-menu"
+                }
+            ]
+        },
+        {
+            "activeMenu": "multiple-views",
+            "backIcon": "arrowIcon",
+            "menuTitle": "Multiple Views",
+            "menuLinks": [
+                {
+                    "title": "Missing Migrants",
+                    "icon": "newsIcon",
+                    "link": "/missing-migrants"
                 }
             ]
         }
