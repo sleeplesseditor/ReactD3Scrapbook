@@ -6,14 +6,14 @@ import { useData, useWorldAtlas } from './useData';
 import './MultipleView.scss';
   
 const width = 960;
-const height = 500;
-const dateHistogramSize = 0.3;
-const xValue = d => d['Reported Date'];
-
+const height = 700;
+const dateHistogramSize = 0.25;
+const xValue = d => d.reported;
 
 const MultipleViews = () => {
     const data = useData();
     const worldAtlas = useWorldAtlas();
+    const [tooltipState, setTooltipState] = React.useState(null);
     const [brushExtent, setBrushExtent] = React.useState();
   
     if (!data || !worldAtlas) {
@@ -29,7 +29,10 @@ const MultipleViews = () => {
         <div className="main-container">
             <svg width={width} height={height}>
                 <BubbleMap
-                    data={filteredData}
+                    data={data}
+                    filteredData={filteredData}
+                    setTooltipState={setTooltipState}
+                    tooltipState={tooltipState}
                     worldAtlas={worldAtlas}
                 />
                 <g transform={`translate(0, ${height - dateHistogramSize * height})`}>
@@ -37,7 +40,8 @@ const MultipleViews = () => {
                         data={data}
                         height={dateHistogramSize * height}
                         setBrushExtent={setBrushExtent}
-                        width={width} xValue={xValue}
+                        width={width}
+                        xValue={xValue}
                     />
                 </g>
             </svg>

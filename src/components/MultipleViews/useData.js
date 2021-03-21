@@ -11,8 +11,8 @@ export const useData = () => {
     React.useEffect(() => {
         const row = d => {
             d.coords = d['Location Coordinates'].split(',').map(d => +d).reverse();
-            d['Total Dead and Missing'] = +d['Total Dead and Missing'];
-            d['Reported Date'] = new Date(d['Reported Date']);
+            d.total = +d['Total Dead and Missing'];
+            d.reported = new Date(d['Reported Date']);
             return d;
         };
         csv(csvUrl, row).then(setData);

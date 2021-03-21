@@ -47,3 +47,16 @@ circle {
     fill: #137B80;
     opacity: 0.3;
 }
+
+.tooltip {
+    rect {
+        fill: gray;
+        opacity: 0.75;
+        border-radius: 5px;
+    }
+
+    text {
+        fill: #fff;
+        font-size: 12px;
+    }
+}
