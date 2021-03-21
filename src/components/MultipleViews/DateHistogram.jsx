@@ -8,6 +8,9 @@ import {
     histogram as bin,
     timeMonths,
     sum,
+    brushX,
+    select,
+    event
   } from 'd3';
 import { AxisLeft, AxisBottom, Marks } from './MultipleViewHelpers';
 
@@ -15,8 +18,9 @@ const margin = { top: 0, right: 30, bottom:30, left: 30 };
 const xAxisLabelOffset = 24;
 const yAxisLabelOffset = 40;
 
-export const DateHistogram = ({ data, height, width }) => {
-  const xValue = d => d['Reported Date'];
+export const DateHistogram = ({ data, height, setBrushExtent, width, xValue }) => {
+  const brushRef = React.useRef();
+
   const xAxisLabel = 'Time';
 
   const yValue = d => d['Total Dead and Missing'];
@@ -47,6 +51,15 @@ export const DateHistogram = ({ data, height, width }) => {
   const yScale = scaleLinear()
     .domain([0, max(binnedData, d => d.y)])
     .range([innerHeight, 0]);
+
+  React.useEffect(() => {
+    const brush = brushX()
+      .extent([[0, 0], [innerWidth, innerHeight]])
+    brush(select(brushRef.current))
+    brush.on('brush end', function(event) {
+      setBrushExtent(event.selection && event.selection.map(xScale.invert));
+    })
+  }, [innerWidth, innerHeight])
 
   return (
     <>
@@ -81,6 +94,7 @@ export const DateHistogram = ({ data, height, width }) => {
           tooltipFormat={d => d}
           innerHeight={innerHeight}
         />
+        <g ref={brushRef} />
       </g> 
     </>
   )
