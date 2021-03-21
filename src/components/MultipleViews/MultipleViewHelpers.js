@@ -55,7 +55,7 @@ export const Globe = ({
                     <text x={a + 15} y={b}>{tooltipDateFormat(tooltipState.reported)}</text>
                     <text x={a + 15} y={b + 15}>X: {tooltipState.coords[0]}</text>
                     <text x={a + 15} y={b + 30}>Y: {tooltipState.coords[1]}</text>
-                    <text x={a + 15} y={b + 45}>Total:  {tooltipState.total}</text>
+                    <text x={a + 15} y={b + 45}>Total:  {tooltipState.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</text>
                 </g>
             )
         }

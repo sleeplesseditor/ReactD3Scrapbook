@@ -20,7 +20,7 @@ export const Marks = ({
                 <rect x={a + 10} y={b - 15} width="100" height="50" className="tooltip-background"></rect>
                 <text x={a + 15} y={b}>{tooltipState.city},</text>
                 <text x={a + 15} y={b + 15}>{tooltipState.country}</text>
-                <text x={a + 15} y={b + 30}>Pop.:  {tooltipState.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</text>
+                <text x={a + 15} y={b + 30}>Pop.: {tooltipState.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</text>
             </g>
         )
     }
