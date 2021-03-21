@@ -51,7 +51,7 @@ export const Globe = ({
             const [a, b] = projection(tooltipState.coords);
             return (
                 <g className="tooltip" x={a} y={b}>
-                    <rect x={a + 10} y={b - 15} width="100" height="70" className="tooltip-background"></rect>
+                    <rect x={a + 10} y={b - 15} width="130" height="70" className="tooltip-background"></rect>
                     <text x={a + 15} y={b}>{tooltipDateFormat(tooltipState.reported)}</text>
                     <text x={a + 15} y={b + 15}>X: {tooltipState.coords[0]}</text>
                     <text x={a + 15} y={b + 30}>Y: {tooltipState.coords[1]}</text>
