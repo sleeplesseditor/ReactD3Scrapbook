@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { max, scaleSequential, schemeYlOrRd } from 'd3';
+import { max, scaleSequential, interpolateYlOrRd } from 'd3';
 import { useWorldAtlas } from './useWorldAtlas';
+import { useCodes } from './useCodes';
 import { useData } from './useData';
 import { Marks } from './ChoroplethHelpers';
 import './Choropleth.scss';
@@ -13,16 +14,32 @@ const Choropleth = () => {
     const [tooltipState, setTooltipState] = React.useState(null);
     const worldAtlas = useWorldAtlas();
     const data = useData();
+    const codes = useCodes();
 
-    if(!worldAtlas || !data) {
+    if(!worldAtlas || !data || !codes) {
         return <pre>Loading...</pre>
     }
 
+    const numericCodeByAlphaCode = new Map();
+    codes.forEach(code => {
+        const alpha3Code = code['alpha-3'];
+        const numericCode = code['country-code'];
+        numericCodeByAlphaCode.set(alpha3Code, numericCode);
+    })
+
     const filteredData = data.filter(d => d.Year === selectedYear);
+
+    const rowByNumericCode = new Map();
+
+    filteredData.forEach(d => {
+        const alpha3Code = d.Code;
+        const numericCode = numericCodeByAlphaCode.get(alpha3Code);
+        rowByNumericCode.set(numericCode, d)
+    });
 
     const colourValue = d => d.aids;
 
-    const colourScale = scaleSequential(schemeYlOrRd)
+    const colourScale = scaleSequential(interpolateYlOrRd)
         .domain([0, max(data, colourValue)])
 
     return (
@@ -32,6 +49,7 @@ const Choropleth = () => {
                     setTooltipState={setTooltipState}
                     colourScale={colourScale}
                     colourValue={colourValue}
+                    rowByNumericCode={rowByNumericCode}
                     tooltipState={tooltipState}
                     worldAtlas={worldAtlas}
                 />

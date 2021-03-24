@@ -58,6 +58,11 @@
                     "title": "Cities",
                     "icon": "globeIcon",
                     "link": "/cities"
+                },
+                {
+                    "title": "Choropleth",
+                    "icon": "globeIcon",
+                    "link": "/choropleth"
                 }
             ]
         },

@@ -4,13 +4,15 @@ import { geoGraticule, geoNaturalEarth1, geoPath } from 'd3';
 const projection = geoNaturalEarth1();
 const path = geoPath(projection);
 const graticule = geoGraticule();
+const missingDataColour = 'gray';
 
 export const Marks = ({
     setTooltipState,
     colourScale,
     colourValue,
+    rowByNumericCode,
     tooltipState,
-    worldAtlas: { land, interiors }
+    worldAtlas: { countries, interiors }
 }) => {
     const tooltipComponent = () => {
         const [a, b] = projection([tooltipState.lng, tooltipState.lat]);
@@ -28,14 +30,13 @@ export const Marks = ({
         <g className="marks">
             <path className="sphere" id="sphere" d={path({ type: 'Sphere' })} />
             <path className="graticules" d={path(graticule())} />
-            {land.features.map(feature => (
-                <path key={feature.properties.name} className="land" d={path(feature)} />
-            ))};
+            {countries.features.map(feature => {
+                const d = rowByNumericCode.get(feature.id);
+                return (
+                    <path key={feature.id} fill={d ? colourScale(colourValue(d)) : missingDataColour} d={path(feature)} />
+                );
+            })};
             <path className="interiors" d={path(interiors)} />
-            {cities.map(d => {
-                const [x, y] = projection([d.lng, d.lat]);
-                return <circle className="city-marker" cx={x} cy={y} r={sizeScale(sizeValue(d))} onMouseOver={() => setTooltipState(d)} onMouseOut={() => setTooltipState(null)} />
-            })}
             {tooltipState ? tooltipComponent() : null}
         </g>
     )
