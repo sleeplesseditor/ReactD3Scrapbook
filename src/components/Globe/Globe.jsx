@@ -3,6 +3,9 @@ import { useData } from './useData';
 import { Marks } from './GlobeHelpers';
 import './Globe.scss';
 
+import {Stage} from '../helpers/Stage';
+import {ZoomContainer} from '../helpers/zoomContainer';
+
 const width = 960;
 const height = 500;
 
@@ -15,9 +18,11 @@ const Globe = () => {
 
     return (
         <div className="main-container">
-            <svg width={width} height={height}>
-                <Marks data={data} />
-            </svg>
+            <Stage width={width} height={height}>
+                <ZoomContainer>
+                    <Marks data={data} />
+                </ZoomContainer>
+            </Stage>
         </div>
     )
 };
