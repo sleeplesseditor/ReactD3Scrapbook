@@ -55,6 +55,8 @@ const Choropleth = () => {
                     worldAtlas={worldAtlas}
                 />
             </svg>
+            <text>HIV/AIDS Prevalence in Ages 15-49 years</text>
+            <text>Source: Our World in Data: HIV / AIDS by Max Roser and Hannah Ritchie</text>
             <div className="range-container">
                 <RangeInput
                     currentYear={currentYear}
