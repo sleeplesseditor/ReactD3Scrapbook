@@ -4,14 +4,15 @@ import { useWorldAtlas } from './useWorldAtlas';
 import { useCodes } from './useCodes';
 import { useData } from './useData';
 import { Marks } from './ChoroplethHelpers';
+import RangeInput from './RangeInput';
 import './Choropleth.scss';
 
 const width = 960;
 const height = 500;
-const selectedYear = '2017';
 
 const Choropleth = () => {
     const [tooltipState, setTooltipState] = React.useState(null);
+    const [currentYear, setCurrentYear] = React.useState('2017');
     const worldAtlas = useWorldAtlas();
     const data = useData();
     const codes = useCodes();
@@ -27,7 +28,7 @@ const Choropleth = () => {
         numericCodeByAlphaCode.set(alpha3Code, numericCode);
     })
 
-    const filteredData = data.filter(d => d.Year === selectedYear);
+    const filteredData = data.filter(d => d.Year === currentYear);
 
     const rowByNumericCode = new Map();
 
@@ -54,6 +55,15 @@ const Choropleth = () => {
                     worldAtlas={worldAtlas}
                 />
             </svg>
+            <div className="range-container">
+                <RangeInput
+                    currentYear={currentYear}
+                    defaultValue="2017"
+                    min="1990"
+                    max="2017"
+                    setCurrentYear={setCurrentYear}
+                />
+            </div>
         </div>
     )
 };

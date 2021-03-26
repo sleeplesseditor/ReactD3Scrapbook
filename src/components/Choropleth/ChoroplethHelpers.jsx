@@ -15,8 +15,6 @@ export const Marks = ({
     worldAtlas: { countries, interiors, land }
 }) => {
     const tooltipComponent = () => {
-        const [a, b] = projection([tooltipState.x, tooltipState.y]);
-        console.log('STATE', tooltipState)
         return (
             <g className="tooltip" x={tooltipState.x} y={tooltipState.y}>
                 <rect x={tooltipState.x + 10} y={tooltipState.y - 15} width="100" height="50" className="tooltip-background"></rect>
@@ -34,7 +32,13 @@ export const Marks = ({
             {countries.features.map(feature => {
                 const d = rowByNumericCode.get(feature.id);
                 return (
-                    <path key={feature.id} fill={d ? colourScale(colourValue(d)) : missingDataColour} d={path(feature)} onMouseEnter={(event) => setTooltipState({...d, x: pointer(event)[0], y: pointer(event)[1]})} onMouseLeave={() => setTooltipState(null)} />
+                    <path
+                        key={feature.id}
+                        fill={d ? colourScale(colourValue(d)) : missingDataColour}
+                        d={path(feature)}
+                        onMouseEnter={(event) => setTooltipState({...d, x: pointer(event)[0], y: pointer(event)[1]})}
+                        onMouseLeave={() => setTooltipState(null)} 
+                    />
                 );
             })};
             <path className="interiors" d={path(interiors)} />

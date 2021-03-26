@@ -1,0 +1,98 @@
+
+#range-container {
+    margin:200px 0px 0px 100px;
+  }
+  
+  #current-year {
+    height: 60px;
+    transform: translateY(-70px); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row
+  }
+  
+  h1 {
+    font-family: Helvetica, sans-serif;
+    color: black;
+  }
+  
+  #range {
+    transform: translateX(0px);
+    width: 540px;
+    padding: 25px 10px 25px 25px;
+    border: black 2px solid;
+    height: 30px;
+    z-index: 10;
+  }
+  
+  #svg {
+    z-index: -1;
+    width: 535px;
+    height: 80px;
+    position: absolute;
+    left: 25px;
+    top:0;
+  }
+  
+  input[type=range] {
+    transform: translateY(-60px);
+    -webkit-appearance: none;
+    width: 511px;
+    margin: 0px;
+    margin-left: 14px;
+    background: transparent;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+  
+  }
+  input[type=range]::-webkit-slider-thumb {
+    height: 30px;
+    width: 11px;
+    background: black;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -15.5px;
+  }
+  
+  .grid line {
+    stroke: #FFF;
+  }
+  
+  .grid .minor line {
+    stroke-opacity: .5;
+  }
+  
+  .grid text {
+    display: none;
+  }
+  
+  .axis path,
+  .grid path {
+    display: none;
+  }
+  
+  .axis.date {
+    font-size: 12px;
+    font-family: "Helvetica", Arial, sans-serif;
+  }
+  .grid g line{
+    stroke: black;
+    stroke-width: 1px;
+  }
+  
+  .axis.date text {
+    fill: black;
+  }
+
+  .tick {
+    stroke: black;
+    stroke-width: 1px;
+    padding: 10px 0;
+  }
