@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { select, timeFormat, scaleTime, axisBottom } from 'd3';
+import { timeFormat, scaleTime, timeYear } from 'd3';
 import './RangeInput.scss';
 
 const xAxisTickFormat = timeFormat("%Y");
+
+const x = scaleTime()
+    .domain([new Date(1990, 0, 1, 0), new Date(2017, 0, 1, 0)])
+    .range([0, 500]);
 
 const RangeInput = ({ currentYear, defaultValue, min, max, setCurrentYear }) => {
     const getValue = (e) => {
         setCurrentYear(e.target.value);
     }
-
-    const x = scaleTime()
-        .domain([new Date(1990, 0, 1), new Date(2017, 0, 1)])
-        .range([0, 500]);
 
     React.useEffect(() => {
         const slider = document.getElementById("range");
@@ -19,14 +19,14 @@ const RangeInput = ({ currentYear, defaultValue, min, max, setCurrentYear }) => 
     }, [])
 
     const AxisBottom = ({ xScale, innerHeight, tickFormat }) =>
-    xScale.ticks().map(tickValue => (
+    xScale.ticks(timeYear).map(tickValue => (
         <g
             className="tick"
             key={tickValue}
             transform={`translate(${xScale(tickValue) + 20}, 20)`}
         >
             <line y2={innerHeight / 10} />
-            <text style={{ textAnchor: 'middle', fontSize: 10 }} dy=".71em" y={innerHeight / 9}>
+            <text style={{ textAnchor: 'start', fontSize: 7, transform: 'rotate(45deg)', transformOrigin: 'left' }} dy=".71em" y={innerHeight / 9}>
                 {tickFormat(tickValue)}
             </text>
         </g>
@@ -39,7 +39,7 @@ const RangeInput = ({ currentYear, defaultValue, min, max, setCurrentYear }) => 
                 <h3>{currentYear}</h3>
             </div>
             <svg id="svg">
-                <line style={{ stroke: 'black' }} x1={0} x2={520} y1={40} y2={40} />
+                <line style={{ stroke: 'black' }} x1={20} x2={520} y1={40} y2={40} />
                 <AxisBottom
                     innerHeight={390}
                     tickFormat={xAxisTickFormat}
