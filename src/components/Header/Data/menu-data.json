@@ -19,6 +19,11 @@
 			"title": "Multiple Views",
 			"icon": "multiIcon",
 			"link": "multiple-views"
+        },
+        {
+			"title": "Networks",
+			"icon": "networkIcon",
+			"link": "networks"
         }
     ],
     "subMenus": [
@@ -87,6 +92,18 @@
                     "title": "Missing Migrants",
                     "icon": "newsIcon",
                     "link": "/missing-migrants"
+                }
+            ]
+        },
+        {
+            "activeMenu": "networks",
+            "backIcon": "arrowIcon",
+            "menuTitle": "Networks",
+            "menuLinks": [
+                {
+                    "title": "Organization Graph",
+                    "icon": "organizationIcon",
+                    "link": "/organization"
                 }
             ]
         }
