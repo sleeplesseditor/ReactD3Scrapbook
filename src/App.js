@@ -14,7 +14,7 @@ const CityMapPage = React.lazy(() => import('./components/CityMap/CityMap'));
 const ScatterMenuPage = React.lazy(() => import('./components/ScatterMenu/ScatterMenu'));
 const MultipleViewsPage = React.lazy(() => import('./components/MultipleViews/MultipleViews'));
 const ChoroplethPage = React.lazy(() => import('./components/Choropleth/Choropleth'));
-const OrganizationPage = React.lazy(() => import('./components/Organization/Organization'));
+const UploadPage = React.lazy(() => import('./components/Upload/Upload'));
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/scatter-menu" component={LazyLoader(ScatterMenuPage)} />
         <Route exact path="/missing-migrants" component={LazyLoader(MultipleViewsPage)} />
         <Route exact path="/choropleth" component={LazyLoader(ChoroplethPage)} />
-        <Route exact path="/organization" component={LazyLoader(OrganizationPage)} />
+        <Route exact path="/upload" component={LazyLoader(UploadPage)} />
       </Switch>
     </Router>
   );

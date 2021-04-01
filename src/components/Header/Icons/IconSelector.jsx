@@ -7,11 +7,13 @@ import { ReactComponent as GlobeIcon } from './globe.svg';
 import { ReactComponent as LineIcon } from './line.svg';
 import { ReactComponent as MapIcon } from './maps.svg';
 import { ReactComponent as MenuIcon } from './menu.svg';
+import { ReactComponent as MiscIcon } from './misc.svg';
 import { ReactComponent as MultiIcon } from './multiIcon.svg';
 import { ReactComponent as NetworkIcon } from './network.svg';
 import { ReactComponent as NewsIcon } from './newsIcon.svg';
 import { ReactComponent as OrganizationIcon } from './organization.svg';
 import { ReactComponent as ScatterIcon } from './scatter.svg';
+import { ReactComponent as UploadIcon } from './upload.svg';
 
 const getIcon = (icon) => {
   const iconSelection = {
@@ -22,11 +24,13 @@ const getIcon = (icon) => {
       lineIcon: () => <LineIcon/>,
       mapIcon: () => <MapIcon />,
       menuIcon: () => <MenuIcon />,
+      miscIcon: () => <MiscIcon />,
       multiIcon: () => <MultiIcon />,
       networkIcon: () => <NetworkIcon />,
       newsIcon: () => <NewsIcon />,
       organizationIcon: () => <OrganizationIcon />,
       scatterIcon: () => <ScatterIcon/>,
+      uploadIcon: () => <UploadIcon/>,
       default: () => null
   }
 

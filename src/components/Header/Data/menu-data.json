@@ -16,14 +16,14 @@
 			"link": "menu"
         },
         {
+			"title": "Misc.",
+			"icon": "miscIcon",
+			"link": "misc"
+        },
+        {
 			"title": "Multiple Views",
 			"icon": "multiIcon",
 			"link": "multiple-views"
-        },
-        {
-			"title": "Networks",
-			"icon": "networkIcon",
-			"link": "networks"
         }
     ],
     "subMenus": [
@@ -96,14 +96,14 @@
             ]
         },
         {
-            "activeMenu": "networks",
+            "activeMenu": "misc",
             "backIcon": "arrowIcon",
-            "menuTitle": "Networks",
+            "menuTitle": "Misc.",
             "menuLinks": [
                 {
-                    "title": "Organization Graph",
-                    "icon": "organizationIcon",
-                    "link": "/organization"
+                    "title": "CSV Upload",
+                    "icon": "uploadIcon",
+                    "link": "/upload"
                 }
             ]
         }
