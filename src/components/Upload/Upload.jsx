@@ -125,7 +125,7 @@ const create_chart = (data) => {
 
     React.useEffect(() => {
         if(selectedFile !== null) {
-            d3.select('svg').remove();
+            d3.select('#svg-container').select('svg').remove();
         }
     }, [selectedFile])
 
