@@ -41,7 +41,9 @@ const Upload = () => {
             .selectAll("tr.row")
             .data(data)
             .enter().append("tr")
-            .attr("class", "row")
+            .attr('class', function(d, i) {
+                return 'row' + i
+            })
             .selectAll("td")
             .data(function(d) { return keys.map(function(key) { return d[key] }) ; })
             .enter().append("td")
@@ -54,8 +56,6 @@ const create_chart = (data) => {
     const height = 500;
     const radius = Math.min(width, height) / 2;
     const labelHeight = 18;
-
-    console.log('DATA', data)
   
     const color = d3.scaleOrdinal()
         .range(["#0087DC", "#DC241f", "#FDBB30", "#D46A4C", "#FFFF00", "#326760", "#008142", "##528D6B", "#CCC"]);
@@ -85,7 +85,11 @@ const create_chart = (data) => {
         .attr('stroke', 'black')
         .attr("fill", function(d) {
             return color(d.data.political_party);
-        });
+        })
+        .attr('id', function(d, i) {
+            return 'arc_' + i
+        })
+        .style('opacity', 0.7);
   
     const legend = svg
         .append('g')
@@ -102,7 +106,16 @@ const create_chart = (data) => {
         .attr('height', labelHeight)
         .attr('fill', d => color(d.data.political_party))
         .attr('stroke', 'grey')
-        .style('stroke-width', '1px');
+        .on('mouseover', function(d, i) {
+            d3.select('#arc_' + i.index).style("opacity", 1);
+            d3.select('tr.row' + i.index).style("background", "gray").style('color', 'white');
+        })
+        .on('mouseout', function(d, i) {
+            d3.selectAll("path").style("opacity", 0.7);
+            d3.select('tr.row' + i.index).style("background", "none").style('color', 'black');
+        })
+        .style('stroke-width', '1px')
+        .style('opacity', 0.7);
 
     legend
         .selectAll(null)
