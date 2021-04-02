@@ -1,70 +1,68 @@
 import * as React from 'react';
-import { csv, select } from 'd3';
+import * as d3 from 'd3';
+import CSVReader from 'react-csv-reader';
 import './upload.scss';
+
+function toCamel(string){
+    return string.replace(/(?:_| |\b)(\w)/g, function($1){return $1.toUpperCase().replace('_',' ');});
+}
 
 const Upload = () => {
     const [selectedFile, setSelectedFile] = React.useState(null);
 	const [isFilePicked, setIsFilePicked] = React.useState(false);
 
-    function create_table(data) {
-        // table stats
+    const handleLoad = (data) => {
+        setSelectedFile(data)
+        setIsFilePicked(true);
+    };
 
-        csv('./data/ge2010.csv').then(res => { console.log(res) })
+    const parsingOptions = {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        transformHeader: header => header.toLowerCase().replace(/\W/g, "_")
+    };
 
-        console.log('TABLE', data)
-
-        var tableKeys = Object.keys(selectedFile[0]);
-
-        console.log('tableKeys', tableKeys)
-
+    const create_table = (data) => {
+        var keys = Object.keys(data[0]);
       
-        // select("#table")
-        //   .html("")
-        //   .append("tr")
-        //   .attr("class","fixed")
-        //   .selectAll("th")
-        //   .data(tableKeys)
-        //   .enter().append("th")
-        //     .text(function(d) { return d; });
+        d3.select("#table")
+            .html("")
+            .append("tr")
+            .attr("class","fixed")
+            .selectAll("th")
+            .data(keys)
+            .enter().append("th")
+            .text(function(d) { return toCamel(d); });
       
-        // select("#table")
-        //   .selectAll("tr.row")
-        //     .data(data)
-        //   .enter().append("tr")
-        //     .attr("class", "row")
-        //     .selectAll("td")
-        //     .data(function(d) { return tableKeys.map(function(key) { return d[key] }) ; })
-        //     .enter().append("td")
-        //       .text(function(d) { return d; });
+        d3.select("#table")
+            .selectAll("tr.row")
+            .data(data)
+            .enter().append("tr")
+            .attr("class", "row")
+            .selectAll("td")
+            .data(function(d) { return keys.map(function(key) { return d[key] }) ; })
+            .enter().append("td")
+                .text(function(d) { return d; });
       }
-    
-    const uploadHandler = (event) => {
-        const reader = new FileReader();
-        const csvFile = event.target.files[0]
-    	reader.readAsText(csvFile)
-
-        reader.onload = function (e) {
-            setSelectedFile(e.target.result)
-            setIsFilePicked(true);
-        }
-    }
 
     React.useEffect(() => {
-        if(selectedFile !== null) {
-            console.log('HERP')
+        if(isFilePicked) {
             create_table(selectedFile)
         }
-    }, [selectedFile]);
-
+    }, [isFilePicked]);
 
     return (
         <div className="main-container">
-            <input aria-label="file-upload" type="file" id="uploader" accept=".csv" onChange={uploadHandler}/>
+            <CSVReader
+                cssClass="react-csv-input"
+                label="Select CSV File"
+                onFileLoaded={handleLoad}
+                parserOptions={parsingOptions}
+            />
             {isFilePicked ? (
                 <div className="data-container">
-                    <table id="table">
-                        <th></th>
-                    </table>
+                    <table id="table"></table>
                 </div>
             ) : null}
         </div>
