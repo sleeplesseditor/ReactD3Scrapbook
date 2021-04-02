@@ -3,14 +3,15 @@ table {
     border-collapse: collapse; 
 }
 
-table th { 
-    border: 1px solid #aaa; 
-}
-
 table td { 
-    border: 1px solid #d0d0d0; 
+    padding: 5px;
 }
 
+.fixed, 
+.row {
+    border-bottom: 1px solid #d0d0d0;
+    padding: 1rem 0;
+}
 
 .data-container {
     display: flex;
@@ -18,4 +19,17 @@ table td {
     align-items: center;
     width: 100%;
     margin: 1rem;
+}
+
+.viz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend {
+    outline: 1px solid black;
+    outline-offset: 10px;
+    padding: 5px;
 }
