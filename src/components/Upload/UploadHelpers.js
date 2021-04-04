@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as d3 from 'd3';
 
-export const CSVPieChart = ({ coloursArr, data, id, height, labelHeight, width }) => {
+export const CSVPieChart = ({ arcValue, coloursArr, data, id, height, labelHeight, pieValue, width }) => {
     const radius = Math.min(width, height) / 2;
   
     const color = d3.scaleOrdinal()
@@ -13,7 +13,7 @@ export const CSVPieChart = ({ coloursArr, data, id, height, labelHeight, width }
   
     const pie = d3.pie()
         .sort(null)
-        .value(function(d) { return d.percentage_of_vote; });
+        .value(function(d) { return d[pieValue]; });
 
     d3.select('#svg-container').select('svg').remove();
   
@@ -33,7 +33,7 @@ export const CSVPieChart = ({ coloursArr, data, id, height, labelHeight, width }
         .attr("d", arc)
         .attr('stroke', 'black')
         .attr("fill", function(d) {
-            return color(d.data.political_party);
+            return color(d.data[arcValue]);
         })
         .attr('id', function(d, i) {
             return 'arc_' + i
@@ -53,7 +53,7 @@ export const CSVPieChart = ({ coloursArr, data, id, height, labelHeight, width }
         .attr('y', (d, i) => labelHeight * i * 1.8)
         .attr('width', labelHeight)
         .attr('height', labelHeight)
-        .attr('fill', d => color(d.data.political_party))
+        .attr('fill', d => color(d.data[arcValue]))
         .attr('stroke', 'grey')
         .on('mouseover', function(d, i) {
             d3.select('#arc_' + i.index)
@@ -79,7 +79,7 @@ export const CSVPieChart = ({ coloursArr, data, id, height, labelHeight, width }
         .data(pie(data))
         .enter()
         .append('text')
-        .text(d => d.data.political_party)
+        .text(d => d.data[arcValue])
         .attr('x', labelHeight * 1.5)
         .attr('y', (d, i) => labelHeight * i * 1.79 + labelHeight)
         .style('font-family', 'sans-serif')

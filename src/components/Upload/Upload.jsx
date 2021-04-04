@@ -72,11 +72,13 @@ const Upload = () => {
                     <div className="data-container">
                         <table id="table"></table>
                         <CSVPieChart
+                            arcValue="political_party"
                             coloursArr={partyColours}
                             data={selectedFile}
                             height={500}
                             id="svg-container"
                             labelHeight={18}
+                            pieValue="percentage_of_vote"
                             width={860}
                         />
                     </div>
