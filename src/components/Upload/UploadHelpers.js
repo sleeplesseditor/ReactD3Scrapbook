@@ -56,12 +56,20 @@ export const CSVPieChart = ({ coloursArr, data, id, height, labelHeight, width }
         .attr('fill', d => color(d.data.political_party))
         .attr('stroke', 'grey')
         .on('mouseover', function(d, i) {
-            d3.select('#arc_' + i.index).style("opacity", 1);
-            d3.select('tr.row' + i.index).style("background", "gray").style('color', 'white');
+            d3.select('#arc_' + i.index)
+                .style("opacity", 1)
+                .style("transform", "scale(1.1)");
+            d3.select('tr.row' + i.index)
+                .style("background", "gray")
+                .style('color', 'white');
         })
         .on('mouseout', function(d, i) {
-            d3.selectAll("path").style("opacity", 0.7);
-            d3.select('tr.row' + i.index).style("background", "none").style('color', 'black');
+            d3.selectAll("path")
+                .style("opacity", 0.7)
+                .style("transform", "scale(1)");
+            d3.select('tr.row' + i.index)
+                .style("background", "none")
+                .style('color', 'black');
         })
         .style('stroke-width', '1px')
         .style('opacity', 0.7);
