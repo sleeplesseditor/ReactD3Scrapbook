@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as d3 from 'd3';
 
-export const CSVPieChart = ({ arcValue, coloursArr, data, id, height, labelHeight, pieValue, width }) => {
+function toCamel(string){
+    return string.replace(/(?:_| |\b)(\w)/g, function($1){return $1.toUpperCase().replace('_',' ');});
+}
+
+const CSVPieChart = ({ arcValue, coloursArr, data, id, height, labelHeight, pieValue, width }) => {
     const radius = Math.min(width, height) / 2;
   
     const color = d3.scaleOrdinal()
@@ -89,4 +93,39 @@ export const CSVPieChart = ({ arcValue, coloursArr, data, id, height, labelHeigh
         <div id={id}>
         </div>
     )
+}
+
+const CSVTable = ({ data }) => {
+    const keys = Object.keys(data[0]);
+
+    d3.select("#table")
+        .html("")
+        .append("tr")
+        .attr("class", "fixed")
+        .selectAll("th")
+        .data(keys)
+        .enter().append("th")
+        .text(function(d) { return toCamel(d); });
+
+    d3.select("#table")
+        .selectAll("tr.row")
+        .data(data)
+        .enter().append("tr")
+        .attr('class', function(d, i) {
+            return 'row' + i
+        })
+        .selectAll("td")
+        .data(function(d) { return keys.map(function(key) { return d[key] }) ; })
+        .enter().append("td")
+            .text(function(d) { return d; });
+
+    return (
+        <table id="table"></table>
+    )
+}
+
+
+export { 
+    CSVPieChart,
+    CSVTable
 }
