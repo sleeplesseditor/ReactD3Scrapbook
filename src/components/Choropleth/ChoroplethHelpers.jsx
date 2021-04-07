@@ -17,16 +17,19 @@ export const Marks = ({
     const tooltipComponent = () => {
         return (
             <g className="tooltip" x={tooltipState.x} y={tooltipState.y}>
-                <rect x={tooltipState.x + 10} y={tooltipState.y - 15} width="125" height="40" className="tooltip-background"></rect>
-                <text x={tooltipState.x + 15} y={tooltipState.y}>{tooltipState.Entity}</text>
-                <text x={tooltipState.x + 15} y={tooltipState.y + 15}>Pop.: {tooltipState.aids.toFixed(2)}%</text>
+                {tooltipState.aids ? (
+                    <>
+                        <rect x={tooltipState.x + 10} y={tooltipState.y - 15} width="125" height="40" className="tooltip-background"></rect>
+                        <text x={tooltipState.x + 15} y={tooltipState.y}>{tooltipState.Entity}</text>
+                        <text x={tooltipState.x + 15} y={tooltipState.y + 15}>Pop.: {tooltipState.aids.toFixed(2)}%</text>
+                    </>
+                ) : null}
             </g>
         )
     }
 
     return (
         <g className="marks">
-            {console.log('Land', countries)}
             <path className="sphere" id="sphere" d={path({ type: 'Sphere' })} />
             <path className="graticules" d={path(graticule())} />
             {countries.features.map(feature => {
