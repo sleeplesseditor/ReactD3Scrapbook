@@ -19,7 +19,8 @@ export const Marks = ({
             <g className="tooltip" x={tooltipState.x} y={tooltipState.y}>
                 {tooltipState.aids ? (
                     <>
-                        <rect x={tooltipState.x + 10} y={tooltipState.y - 15} width="125" height="40" className="tooltip-background"></rect>
+                        {console.log('LEN', Math.round((tooltipState.Entity.length * 2.5) * 4))}
+                        <rect x={tooltipState.x + 10} y={tooltipState.y - 15} width={Math.round((tooltipState.Entity.length * 2.5) * 4)} height="36" className="tooltip-background"></rect>
                         <text x={tooltipState.x + 15} y={tooltipState.y}>{tooltipState.Entity}</text>
                         <text x={tooltipState.x + 15} y={tooltipState.y + 15}>Pop.: {tooltipState.aids.toFixed(2)}%</text>
                     </>
@@ -36,11 +37,11 @@ export const Marks = ({
                 const d = rowByNumericCode.get(feature.id);
                 return (
                     <path
-                        key={feature.id}
+                        key={feature.properties.name}
                         fill={d ? colourScale(colourValue(d)) : missingDataColour}
                         d={path(feature)}
                         onMouseEnter={(event) => setTooltipState({...d, x: pointer(event)[0], y: pointer(event)[1]})}
-                        onMouseLeave={() => setTooltipState(null)} 
+                        onMouseLeave={() => setTooltipState(null)}
                     />
                 );
             })};
