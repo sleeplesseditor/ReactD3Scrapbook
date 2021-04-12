@@ -14,20 +14,27 @@ export const Marks = ({
     tooltipState,
     worldAtlas: { countries, interiors, land }
 }) => {
-    const tooltipComponent = () => {
+    const nameLength = (name) => {
+        if(name.length >= 10) {
+            return name.length * 7;
+        }
+        return 80
+    }
+
+    const tooltipComponent = React.useMemo(() => {
+        const {aids, Entity, x, y} = tooltipState || {};
         return (
-            <g className="tooltip" x={tooltipState.x} y={tooltipState.y}>
-                {tooltipState.aids ? (
+            <g className="tooltip" x={x / 1.1} y={y / 1.1}>
+                {aids ? (
                     <>
-                        {console.log('LEN', Math.round((tooltipState.Entity.length * 2.5) * 4))}
-                        <rect x={tooltipState.x + 10} y={tooltipState.y - 15} width={Math.round((tooltipState.Entity.length * 2.5) * 4)} height="36" className="tooltip-background"></rect>
-                        <text x={tooltipState.x + 15} y={tooltipState.y}>{tooltipState.Entity}</text>
-                        <text x={tooltipState.x + 15} y={tooltipState.y + 15}>Pop.: {tooltipState.aids.toFixed(2)}%</text>
+                        <rect x={(x / 1.1) + 10} y={(y / 1.1) - 15} width={nameLength(Entity)} height="36" className="tooltip-background" />
+                        <text x={(x / 1.1) + 15} y={(y / 1.1)}>{Entity}</text>
+                        <text x={(x / 1.1) + 15} y={(y / 1.1) + 15}>Pop.: {aids.toFixed(2)}%</text>
                     </>
                 ) : null}
             </g>
         )
-    }
+    }, [tooltipState]);
 
     return (
         <g className="marks">
@@ -46,7 +53,7 @@ export const Marks = ({
                 );
             })};
             <path className="interiors" d={path(interiors)} />
-            {tooltipState ? tooltipComponent() : null}
+            {tooltipState ? tooltipComponent : null}
         </g>
     )
 }
