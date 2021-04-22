@@ -14,12 +14,12 @@ export const Marks = ({
     tooltipState,
     worldAtlas: { countries, interiors, land }
 }) => {
-    const nameLength = (name) => {
+    const nameLength = React.useMemo(() => (name) => {
         if(name.length >= 10) {
             return name.length * 7;
         }
         return 80
-    }
+    }, [])
 
     const tooltipComponent = React.useMemo(() => {
         const {aids, Entity, x, y} = tooltipState || {};
@@ -34,7 +34,7 @@ export const Marks = ({
                 ) : null}
             </g>
         )
-    }, [tooltipState]);
+    }, [nameLength, tooltipState]);
 
     return (
         <g className="marks">
