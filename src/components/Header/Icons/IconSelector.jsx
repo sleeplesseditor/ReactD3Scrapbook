@@ -13,6 +13,7 @@ import { ReactComponent as NetworkIcon } from './network.svg';
 import { ReactComponent as NewsIcon } from './newsIcon.svg';
 import { ReactComponent as OrganizationIcon } from './organization.svg';
 import { ReactComponent as ScatterIcon } from './scatter.svg';
+import { ReactComponent as TreeIcon } from './tree.svg';
 import { ReactComponent as UploadIcon } from './upload.svg';
 
 const getIcon = (icon) => {
@@ -30,6 +31,7 @@ const getIcon = (icon) => {
       newsIcon: () => <NewsIcon />,
       organizationIcon: () => <OrganizationIcon />,
       scatterIcon: () => <ScatterIcon/>,
+      treeIcon: () => <TreeIcon/>,
       uploadIcon: () => <UploadIcon/>,
       default: () => null
   }

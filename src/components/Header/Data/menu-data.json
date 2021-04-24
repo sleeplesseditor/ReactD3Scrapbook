@@ -38,14 +38,19 @@
                     "link": "/"
                 },
                 {
-                    "title": "Scatter",
-                    "icon": "scatterIcon",
-                    "link": "/scatter"
-                },
-                {
                     "title": "Line",
                     "icon": "lineIcon",
                     "link": "/line"
+                },
+                {
+                    "title": "Radial Tree",
+                    "icon": "treeIcon",
+                    "link": "/radial"
+                },
+                {
+                    "title": "Scatter",
+                    "icon": "scatterIcon",
+                    "link": "/scatter"
                 }
             ]
         },
@@ -55,11 +60,6 @@
             "menuTitle": "Maps",
             "menuLinks": [
                 {
-                    "title": "Globe",
-                    "icon": "globeIcon",
-                    "link": "/globe"
-                },
-                {
                     "title": "Cities",
                     "icon": "globeIcon",
                     "link": "/cities"
@@ -68,6 +68,11 @@
                     "title": "Choropleth",
                     "icon": "globeIcon",
                     "link": "/choropleth"
+                },
+                {
+                    "title": "Globe",
+                    "icon": "globeIcon",
+                    "link": "/globe"
                 }
             ]
         },
