@@ -17,9 +17,9 @@ function useOutsideAlerter(ref, openView) {
     }, [ref]);
 }
 
-function DropdownItem({ children, goToMenu, leftIcon, rightIcon, setActiveMenu, subMenu }) {
+function DropdownItem({ children, goToMenu, keyValue, leftIcon, rightIcon, setActiveMenu, subMenu }) {
     return (
-      <a href={subMenu ? subMenu : '#'} className="menu-item" onClick={() => goToMenu && setActiveMenu(goToMenu)}>
+      <a key={keyValue} href={subMenu ? subMenu : '#'} className="menu-item" onClick={() => goToMenu && setActiveMenu(goToMenu)}>
         <span className="icon-button">{leftIcon}</span>
         {children}
         <span className="icon-right">{rightIcon}</span>
@@ -45,8 +45,9 @@ const NewMenu = ({
                 onEnter={calcHeight}
             >
                 <div className="menu">
-                    {menuTitles.map(link => (
-                        <DropdownItem 
+                    {menuTitles.map((link, index) => (
+                        <DropdownItem
+                            keyValue={index}
                             leftIcon={IconSelector(link.icon)} 
                             setActiveMenu={setActiveMenu} 
                             goToMenu={link.link}
