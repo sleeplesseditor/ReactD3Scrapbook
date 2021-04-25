@@ -1,0 +1,17 @@
+.link {
+    fill: none;
+    stroke: #4fb9b5;
+}
+
+.glow {
+    text-shadow:
+        -1px -1px 3px white,
+        -1px  1px 3px white,
+        1px -1px 3px white,
+        1px  1px 3px white;
+}
+
+text {
+    font-family: "Open Sans", sans-serif;
+    pointer-events: none;
+}
