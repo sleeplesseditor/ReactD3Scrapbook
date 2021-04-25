@@ -1,18 +1,10 @@
 import * as React from 'react';
-import { cluster, hierarchy, linkHorizontal, scaleSqrt, select, tree, zoom } from 'd3';
+import { cluster, extent, hierarchy, scaleSqrt, select, zoom } from 'd3';
 import { project, useData } from './RadialTreeHelpers';
 import './RadialTree.scss';
 
 const width = 960;
 const height = 940;
-const margin = {
-    top: 20,
-    right: 30,
-    bottom: 65,
-    left: 220
-}
-const innerWidth = width - margin.left - margin.right;
-const innerHeight = height - margin.top - margin.bottom;
 
 const RadialTree = () => {
     const treeData = useData();
@@ -25,14 +17,11 @@ const RadialTree = () => {
         scaleSqrt().range([30, 4])
     , [])
 
-    const treeLayout = React.useMemo(() => tree().size([innerHeight, innerWidth]), []);
-
     const svg = select('.svg-container');
     const zoomG = svg
         .attr('width', width)
         .attr('height', height)
         .append('g')
-            .attr('transform', `translate(${margin.left},${margin.top})`);
 
     svg.call(zoom().on('zoom', (event) => {
         zoomG.attr('transform', event.transform);
@@ -42,24 +31,71 @@ const RadialTree = () => {
         if(treeData) {
             const root = hierarchy(treeData);
             clusters(root)
-            const links = treeLayout(root).links();
-            const linkPathGenerator = linkHorizontal()
-                .x(d => d.y)
-                .y(d => d.x);
-        
-            zoomG.selectAll('path').data(links)
-                .enter().append('path')
-                    .attr('class', 'link')
-                    .attr('d', linkPathGenerator);
-        
-            zoomG.selectAll('text').data(root.descendants())
-                .enter().append('text')
-                    .attr('x', d => d.y)
-                    .attr('y', d => d.x)
-                    .attr('dy', '0.32em')
-                    .attr('text-anchor', d => d.children ? 'middle' : 'start')
-                    .attr('font-size', d => 3.25 - d.depth + 'em')
-                    .text(d => d.data.data.id);
+            var descendants = root.descendants();
+            fontSize.domain(extent(descendants, function (d){ return d.depth; }))
+
+            var link = zoomG.selectAll(".link")
+                .data(descendants.slice(1))
+                .enter().append("path")
+                    .attr("class", "link")
+                    .attr("d", function(d) {
+                    if(d.parent === descendants[0]){
+                        return "M" + project(height, d.x, d.y, width)
+                        + " " + project(height, d.parent.x, d.parent.y, width);
+                        } else {
+                            return "M" + project(height, d.x, d.y, width)
+                            + "C" + project(height, d.x, (d.y + d.parent.y) / 2, width)
+                            + " " + project(height, d.parent.x, (d.y + d.parent.y) / 2, width)
+                            + " " + project(height, d.parent.x, d.parent.y, width);
+                        }
+                    });
+
+            var node = zoomG.selectAll(".node")
+                .data(descendants)
+                .enter().append("g")
+                .attr("transform", function(d) {
+                    return "translate(" + project(height, d.x, d.y, width) + ")";
+                });
+
+                node.append("text")
+                .text(function (d){
+                  return d.data.data.id;
+                })
+                .attr("font-size", function (d){
+                  return fontSize(d.depth) + "pt";
+                })
+                .attr("transform", function(d) {
+                  var theta = -d.x / Math.PI * 180;
+                  if(d.x > Math.PI / 2){
+                    theta += 180;
+                  }
+                  if(d.depth !== 3 && Math.abs(theta) < 40){
+                    theta = 0;
+                  }
+                  if(d.depth > 1){
+                    return "rotate(" + theta + ")";
+                  } else {
+                    return "";
+                  }
+                })
+                .attr("text-anchor", function (d){
+                  if(d.depth === 3){
+                    return (d.x > Math.PI / 2) ? "end" : "start";
+                  } else {
+                    return "middle";
+                  }
+                })
+                .attr("dx", function (d){
+                  if(d.depth === 3){
+                    return (d.x > Math.PI / 2) ? "-2px" : "2px";
+                  } else {
+                    return "0px";
+                  }
+                })
+                .classed("glow", function (d){
+                  return d.depth !== 3;
+                })
+                .attr("alignment-baseline", "central");
         }
     }
 
