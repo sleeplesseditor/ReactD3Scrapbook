@@ -1,12 +1,6 @@
 import * as React from 'react';
 import {
-    select,
     json,
-    tree,
-    hierarchy,
-    linkHorizontal,
-    zoom,
-    event
 } from 'd3';
 
 const project = (height, theta, r, width) => {
