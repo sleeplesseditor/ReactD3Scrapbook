@@ -8,6 +8,7 @@ const height = 940;
 
 const RadialTree = () => {
     const treeData = useData();
+    const zoomRef = React.useRef();
 
     const clusters = React.useMemo(() => 
         cluster().size([Math.PI, width / 2 - 100])
@@ -105,7 +106,9 @@ const RadialTree = () => {
 
     return (
         <div className="main-container">
-            <svg className="svg-container" width={width} height={height}></svg>
+            <svg className="svg-container" width={width} height={height}>
+              <g ref={zoomRef} />
+            </svg>
         </div>
     )
 };
