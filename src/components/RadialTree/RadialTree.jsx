@@ -8,7 +8,7 @@ const height = 940;
 
 const RadialTree = () => {
     const treeData = useData();
-    const zoomRef = React.useRef();
+    const svgRef = React.useRef();
 
     const clusters = React.useMemo(() => 
         cluster().size([Math.PI, width / 2 - 100])
@@ -18,14 +18,14 @@ const RadialTree = () => {
         scaleSqrt().range([30, 4])
     , [])
 
-    const svg = select('.svg-container');
+    const svg = select(svgRef.current);
     const zoomG = svg
         .attr('width', width)
         .attr('height', height)
         .append('g')
 
     svg.call(zoom().on('zoom', (event) => {
-        zoomG.attr('transform', event.transform);
+      zoomG.attr('transform', event.transform);
     }));
 
     const dataFetch = () => {
@@ -106,9 +106,7 @@ const RadialTree = () => {
 
     return (
         <div className="main-container">
-            <svg className="svg-container" width={width} height={height}>
-              <g ref={zoomRef} />
-            </svg>
+            <svg className="svg-container" ref={svgRef} width={width} height={height} />
         </div>
     )
 };
