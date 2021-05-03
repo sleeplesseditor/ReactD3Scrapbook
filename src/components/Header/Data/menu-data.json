@@ -43,6 +43,11 @@
                     "link": "/line"
                 },
                 {
+                    "title": "Radar",
+                    "icon": "radarIcon",
+                    "link": "/radar"
+                },
+                {
                     "title": "Radial Tree",
                     "icon": "treeIcon",
                     "link": "/radial"

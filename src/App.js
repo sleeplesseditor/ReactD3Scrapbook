@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import LazyLoader from './components/LazyLoader/LazyLoader';
 
 const BarChartPage = React.lazy(() => import('./components/BarChart/BarChart'));
+const RadarChartPage = React.lazy(() => import('./components/RadarChart/RadarChart'));
 const ScatterChartPage = React.lazy(() => import('./components/ScatterChart/ScatterChart'));
 const RadialTreePage = React.lazy(() => import('./components/RadialTree/RadialTree'));
 const LineChartPage = React.lazy(() => import('./components/LineChart/LineChart'));
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/missing-migrants" component={LazyLoader(MultipleViewsPage)} />
         <Route exact path="/choropleth" component={LazyLoader(ChoroplethPage)} />
         <Route exact path="/upload" component={LazyLoader(UploadPage)} />
+        <Route exact path="/radar" component={LazyLoader(RadarChartPage)} />
       </Switch>
     </Router>
   );
