@@ -3,11 +3,12 @@ import './RadarChart.scss';
 
 const data = [
     { battery: 0.7, design: 1, useful: 0.9, speed: 0.67, weight: 0.8 },
-    { battery: 0.6, design: 0.9, useful: 0.8, speed: 0.7, weight: 0.6 }
+    { battery: 0.6, design: 0.9, useful: 0.8, speed: 0.7, weight: 0.6 },
+    { battery: 0.9, design: 0.4, useful: 0.6, speed: 0.9, weight: 0.4 }
 ];
 const chartSize = 550;
 const numberOfScales = 4;
-const colourArr = ['#edc951', '#eb4d31']
+const colourArr = ['#edc951', '#eb4d31', '#3188eb']
 
 const scale = value => (
     <circle
