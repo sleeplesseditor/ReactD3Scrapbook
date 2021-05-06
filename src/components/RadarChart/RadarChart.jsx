@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './RadarChart.scss';
 
 const data = [
     { battery: 0.7, design: 1, useful: 0.9, speed: 0.67, weight: 0.8 },
@@ -6,6 +7,7 @@ const data = [
 ];
 const chartSize = 550;
 const numberOfScales = 4;
+const colourArr = ['#edc951', '#eb4d31']
 
 const scale = value => (
     <circle
@@ -31,9 +33,11 @@ const pathDefinition = points => {
 };
 
 const shape = columns => (chartData, i) => {
+    const [hover, setHover] = React.useState(false);
     const data = chartData;
     return (
         <path
+            className="radar-shape"
             key={`shape-${i}`}
             d={pathDefinition(
                 columns.map(col => {
@@ -44,9 +48,11 @@ const shape = columns => (chartData, i) => {
                     ];
                 })
             )}
-            stroke={`#edc951`}
-            fill={`#edc951`}
-            fillOpacity=".5"
+            stroke={colourArr[i]}
+            fill={colourArr[i]}
+            fillOpacity={hover ? ".5" : ".25"}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
         />
     );
 };
