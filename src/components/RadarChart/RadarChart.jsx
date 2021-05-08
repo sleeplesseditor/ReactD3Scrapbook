@@ -6,7 +6,7 @@ const data = [
     { battery: 0.6, design: 0.9, useful: 0.8, speed: 0.7, weight: 0.6 },
     { battery: 0.9, design: 0.4, useful: 0.6, speed: 0.9, weight: 0.4 }
 ];
-const chartSize = 550;
+const chartSize = 600;
 const numberOfScales = 4;
 const colourArr = ['#edc951', '#eb4d31', '#3188eb']
 
@@ -79,14 +79,15 @@ const axis = () => (col, i) => (
 const caption = () => col => (
     <text
         key={`caption-of-${col.key}`}
-        x={polarToX(col.angle, (chartSize / 2) * 0.95).toFixed(4)}
-        y={polarToY(col.angle, (chartSize / 2) * 0.95).toFixed(4)}
-        dy={10 / 2}
+        x={polarToX(col.angle, (chartSize / 2) * 1.15).toFixed(4)}
+        y={polarToY(col.angle, (chartSize / 2) * 1.15).toFixed(4)}
+        dy={10 * 2}
+        dx={-25}
         fill="#444"
         fontWeight="400"
         textShadow="1px 1px 0 #fff"
     >
-        {col.key}
+        {col.key.charAt(0).toUpperCase() + col.key.slice(1)}
     </text>
 );
 
@@ -98,7 +99,7 @@ const RadarChart = () => {
     }
     groups.push(<g key={`scales`}>{scales}</g>);
 
-    const middleOfChart = (chartSize / 2).toFixed(4);
+    const middleOfChart = ((chartSize / 2) + 50).toFixed(2);
     const captions = Object.keys(data[0]);
     const columns = captions.map((key, i, all) => {
         return {
@@ -114,7 +115,7 @@ const RadarChart = () => {
             <svg
                 width={chartSize + 100}
                 height={chartSize}
-                viewBox={`0 0 ${chartSize} ${chartSize}`}
+                viewBox={`0 0 ${chartSize + 100} ${chartSize + 100}`}
             >
                 <g transform={`translate(${middleOfChart},${middleOfChart})`}>{groups}</g>
             </svg>
