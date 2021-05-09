@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as d3 from 'd3';
 
 export const AxisBottom = ({ innerHeight, tickFormat, tickOffset, xScale }) => xScale.ticks().map(tickValue =>
     <g className="tick" key={tickValue} transform={`translate(${xScale(tickValue)}, 0)`}>
@@ -21,17 +22,25 @@ export const AxisLeft = ({ innerWidth, tickOffset, yScale }) => yScale.ticks().m
     </g>
 )
 
-export const Marks = ({ circleRadius, colourScale, colourValue, data, tooltipFormat, xScale, xValue, yScale, yValue }) =>  data.map(d => (
-    <circle
-        className="mark"
-        cx={xScale(xValue(d))}
-        cy={yScale(yValue(d))}
-        fill={colourScale(colourValue(d))}
-        r={circleRadius}
-    >
-        <title>{tooltipFormat(xValue(d))}</title>
-    </circle>
-))
+export const Marks = ({ circleRadius, colourScale, colourValue, data, tooltipFormat, xScale, xValue, yScale, yValue }) => {
+    const circleRef = React.useRef();
+
+    let el = d3.select(circleRef.current);
+
+    return data.map((d, i) => (
+        <circle
+            className="mark"
+            key={i}
+            cx={xScale(xValue(d))}
+            cy={yScale(yValue(d))}
+            fill={colourScale(colourValue(d))}
+            r={circleRadius}
+            ref={circleRef}
+        >
+            <title>{tooltipFormat(xValue(d))}</title>
+        </circle>
+    ))
+}
 
 export const ColourLegend = ({
     colourScale,
@@ -45,6 +54,7 @@ export const ColourLegend = ({
     return colourScale.domain().map((domainValue, index) => (
         <g
             className="tick"
+            key={index}
             transform={`translate(0, ${index * tickSpacing})`}
             onMouseEnter={() => {onHover(domainValue)}}
             onMouseOut={() => {onHover(null)}}

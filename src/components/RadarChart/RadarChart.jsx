@@ -80,7 +80,7 @@ const caption = () => col => (
     <text
         key={`caption-of-${col.key}`}
         x={polarToX(col.angle, (chartSize / 2) * 1.15).toFixed(4)}
-        y={polarToY(col.angle, (chartSize / 2) * 1.15).toFixed(4)}
+        y={polarToY(col.angle, (chartSize / 2) * 1.1).toFixed(4)}
         dy={10 * 2}
         dx={-25}
         fill="#444"

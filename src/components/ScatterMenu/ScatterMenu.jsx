@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { extent, format, scaleLinear, scaleOrdinal } from 'd3';
+import { extent, format, scaleLinear, scaleOrdinal, selectAll } from 'd3';
 import { useData } from './useData';
 import { AxisBottom, AxisLeft, ColourLegend, Marks } from './ScatterMenuHelpers';
 import { Dropdown } from '../Dropdown/Dropdown';
@@ -79,10 +79,20 @@ const ScatterMenu = () => {
     return (
         <div className="main-container">
             <div className="menu-container">
-                <label for="x-select">X:</label>
-                <Dropdown id="x-select" options={attributes} selectedValue={xAttribute} onSelectedValueChange={setXAttribute} />
-                <label for="y-select">Y:</label>
-                <Dropdown id="y-select" options={attributes} selectedValue={yAttribute} onSelectedValueChange={setYAttribute} />
+                <label htmlFor="x-select">X:</label>
+                <Dropdown 
+                    id="x-select"
+                    options={attributes}
+                    selectedValue={xAttribute}
+                    onSelectedValueChange={setXAttribute}
+                />
+                <label htmlFor="y-select">Y:</label>
+                <Dropdown 
+                    id="y-select"
+                    options={attributes}
+                    selectedValue={yAttribute}
+                    onSelectedValueChange={setYAttribute}
+                />
             </div>
             <svg width={width} height={height}>
                 <g transform={`translate(${margin.left}, ${margin.top})`}>
